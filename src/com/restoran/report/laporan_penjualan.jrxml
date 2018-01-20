@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_penjualan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8ab43c76-c7df-46b5-8f4e-017253d9dfb7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="11"/>
+	<parameter name="idkasir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     detail_transaksi.`id_detail_transaksi` AS detail_transaksi_id_detail_transaksi,
+     detail_transaksi.`id_transaksi` AS detail_transaksi_id_transaksi,
+     detail_transaksi.`id_paket` AS detail_transaksi_id_paket,
+     detail_transaksi.`harga` AS detail_transaksi_harga,
+     detail_transaksi.`jumlah` AS detail_transaksi_jumlah,
+     detail_transaksi.`total_harga` AS detail_transaksi_total_harga,
+     transaksi.`id_transaksi` AS transaksi_id_transaksi,
+     transaksi.`id_kasir` AS transaksi_id_kasir,
+     transaksi.`tanggal` AS transaksi_tanggal,
+     paket_makanan.`nama_paket` AS paket_makanan_nama_paket,
+     kasir.`nama_kasir` AS kasir_nama_kasir
+FROM
+     `transaksi` transaksi INNER JOIN `kasir` kasir ON transaksi.`id_kasir` = kasir.`id_kasir`
+     INNER JOIN `detail_transaksi` detail_transaksi ON transaksi.`id_transaksi` = detail_transaksi.`id_transaksi`
+     INNER JOIN `paket_makanan` paket_makanan ON detail_transaksi.`id_paket` = paket_makanan.`id_paket`
+WHERE
+transaksi.`id_kasir` = $P{idkasir}]]>
+	</queryString>
+	<field name="detail_transaksi_id_detail_transaksi" class="java.lang.Integer"/>
+	<field name="detail_transaksi_id_transaksi" class="java.lang.Integer"/>
+	<field name="detail_transaksi_id_paket" class="java.lang.String"/>
+	<field name="detail_transaksi_harga" class="java.lang.Integer"/>
+	<field name="detail_transaksi_jumlah" class="java.lang.Integer"/>
+	<field name="detail_transaksi_total_harga" class="java.lang.Integer"/>
+	<field name="transaksi_id_transaksi" class="java.lang.Integer"/>
+	<field name="transaksi_id_kasir" class="java.lang.Integer"/>
+	<field name="transaksi_tanggal" class="java.sql.Date"/>
+	<field name="paket_makanan_nama_paket" class="java.lang.String"/>
+	<field name="kasir_nama_kasir" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{detail_transaksi_total_harga}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="802" uuid="23e9901f-a200-4c22-bd69-5980fbaf5c13"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="203" y="28" width="173" height="24" uuid="a7f33202-61ed-4c01-acbc-253f7c0984a4"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN PENJUALAN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="96">
+			<textField>
+				<reportElement x="439" y="13" width="100" height="20" uuid="23389485-1c90-45ec-bafa-b2a9918d566c"/>
+				<textFieldExpression><![CDATA[$F{transaksi_id_kasir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="63" width="100" height="20" uuid="3fd4508f-c652-46bd-9f4a-63b78265da99"/>
+				<text><![CDATA[Id Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="63" width="114" height="20" uuid="62f7e846-dc6f-4b1e-a7fa-eaf93d4a2093"/>
+				<text><![CDATA[Nama Paket Makanan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="63" width="100" height="20" uuid="625bd337-0a4e-4ce8-8563-e64087020b12"/>
+				<text><![CDATA[Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="63" width="100" height="20" uuid="077aadc1-6c3c-4f79-a26f-b211e2d45658"/>
+				<text><![CDATA[Jumlah]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="63" width="100" height="20" uuid="e35837c8-e181-4fc5-bedf-a9bb773830fd"/>
+				<text><![CDATA[Total Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="13" width="100" height="20" uuid="7ff7d064-4a21-4d6c-8fa6-4dbd9fa57c34"/>
+				<text><![CDATA[Id Kasir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="33" width="100" height="20" uuid="c0a997d2-cca7-4902-a48f-0ad7a85f9222"/>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="439" y="33" width="100" height="20" uuid="8aa09e09-c939-4914-9893-6f803e430cd2"/>
+				<textFieldExpression><![CDATA[$F{kasir_nama_kasir}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="57" width="555" height="1" uuid="3979271e-3efa-4edd-84a8-1df773ae15bb"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c53a352e-f5f6-41d5-9142-86512dea38e1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="88" width="555" height="1" uuid="c7a86579-8c87-46b3-9305-ed7e57db50aa"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="35">
+			<textField>
+				<reportElement x="28" y="11" width="100" height="20" uuid="c59b9848-273b-4ff8-adc5-a247798a1463"/>
+				<textFieldExpression><![CDATA[$F{transaksi_id_transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="11" width="114" height="20" uuid="a2e5c2eb-e67f-4a1f-8b3f-8fce921b74b6"/>
+				<textFieldExpression><![CDATA[$F{paket_makanan_nama_paket}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="11" width="100" height="20" uuid="7644e770-db54-4b81-8313-962af9596ce8"/>
+				<textFieldExpression><![CDATA[$F{detail_transaksi_harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="11" width="100" height="20" uuid="91fa1208-9b87-486c-bcfb-195229ca3be5"/>
+				<textFieldExpression><![CDATA[$F{detail_transaksi_jumlah}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="11" width="100" height="20" uuid="62650d82-04ec-4400-be5a-c017307e91a5"/>
+				<textFieldExpression><![CDATA[$F{detail_transaksi_total_harga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<staticText>
+				<reportElement x="339" y="11" width="100" height="20" uuid="b9252f16-a106-4c37-9b58-6e55612ca5f3"/>
+				<text><![CDATA[Total Penjualan]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="442" y="11" width="100" height="20" uuid="50349f57-e562-4e3a-8d0a-c4b4553a0212"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="de66ec09-e696-4165-9bfe-5ce09e449162"/>
+			</line>
+			<line>
+				<reportElement x="0" y="39" width="555" height="1" uuid="0b45c2ed-eea8-441a-8843-12361def0614"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
